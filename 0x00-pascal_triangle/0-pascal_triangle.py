@@ -14,7 +14,7 @@ def pascal_triangle(n):
         # assume n will be always an integer
         if isinstance(n, int):
             if n <= 0:
-                return [[]]
+                return []
             if n == 1:
                 return [[1]]
 
