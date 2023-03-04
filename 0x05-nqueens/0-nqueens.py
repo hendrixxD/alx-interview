@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-
+#!/usr/bin/python3
 """ N queens puzzle, challenge of placing N non attacking queens
 on a NxN chessboard
 This program solves the N queens problem """
