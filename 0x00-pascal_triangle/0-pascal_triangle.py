@@ -1,32 +1,50 @@
-#!/usr/bin/python3
-"""pascals triangle"""
+#!/usr/bin/env python3
+""" N queens puzzle, challenge of placing N non attacking queens
+on a NxN chessboard
+This program solves the N queens problem """
+
+from sys import argv
 
 
-def pascal_triangle(n):
-    """git
-    a function that returns a list
-    of integers representing the
-    pascal triangle of n:
-       . Returns an empty list if n <= 0
-       . assume n will be always an integer
-    """
-    try:
-        # assume n will be always an integer
-        if isinstance(n, int):
-            if n <= 0:
-                return []
-            if n == 1:
-                return [[1]]
+def is_NQueen(cell: list) -> bool:
+    """ False if not N Queen, True if N Queen """
+    row_number = len(cell) - 1
+    difference = 0
+    for index in range(0, row_number):
+        difference = cell[index] - cell[row_number]
+        if difference < 0:
+            difference *= -1
+        if difference == 0 or difference == row_number - index:
+            return False
+    return True
 
-            result = []
-            for i in range(n):
-                row = []
-                for j in range(i + 1):
-                    if j == 0 or j == i:
-                        row.append(1)
-                    else:
-                        row.append(result[i-1][j-1] + result[i-1][j])
-                result.append(row)
-            return result
-    except ValueError as e:
-        print(e)
+
+def solve_NQueens(dimension: int, row: int, cell: list, output: list):
+    """ Return result of N Queens recursively """
+    if row == dimension:
+        print(output)
+    else:
+        for column in range(0, dimension):
+            cell.append(column)
+            output.append([row, column])
+            if (is_NQueen(cell)):
+                solve_NQueens(dimension, row + 1, cell, output)
+            cell.pop()
+            output.pop()
+
+
+if len(argv) != 2:
+    print('Usage: nqueens N')
+    exit(1)
+try:
+    N = int(argv[1])
+except BaseException:
+    print('N must be a number')
+    exit(1)
+if N < 4:
+    print('N must be at least 4')
+    exit(1)
+else:
+    output = []
+    cell = 0
+    solve_NQueens(int(N), cell, [], output)
